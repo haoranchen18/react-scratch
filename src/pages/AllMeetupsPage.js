@@ -3,7 +3,7 @@
 
 
 import MeetupList from "../components/meetups/MeetupList";
-import MeetupItem from "../components/meetups/MeetupItem";
+
 const DUMMY_DATA = [
   {
     id: 'm1',
@@ -36,7 +36,6 @@ function AllMeetupsPage() {
         })}
       </ul> */}
       <MeetupList meetups={DUMMY_DATA}>
-        <MeetupItem></MeetupItem>
       </MeetupList>
     </section>
   );

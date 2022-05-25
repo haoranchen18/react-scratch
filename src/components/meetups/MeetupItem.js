@@ -1,7 +1,10 @@
-import classes from './MeetupItem.module.css';
+import Card from "../ui/Card";
+import classes from "./MeetupItem.module.css";
 function MeetupItem(props) {
-    return (
-      <li className={classes.item}>
+  return (
+    <li className={classes.item}>
+      <Card>
+      {/* 在Card class中 pass 的props.children 代表一下所有content */}
         <div className={classes.image}>
           <img src={props.image} alt={props.title} />
         </div>
@@ -13,8 +16,9 @@ function MeetupItem(props) {
         <div className={classes.actions}>
           <button>To Favorites</button>
         </div>
-      </li>
-    );
-  }
-  
-  export default MeetupItem;
+      </Card>
+    </li>
+  );
+}
+
+export default MeetupItem;
