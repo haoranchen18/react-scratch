@@ -1,6 +1,9 @@
 // this componenet be responsible for loading and displaying all the
 // meetups that we have
 
+
+import MeetupList from "../components/meetups/MeetupList";
+import MeetupItem from "../components/meetups/MeetupItem";
 const DUMMY_DATA = [
   {
     id: 'm1',
@@ -26,12 +29,15 @@ function AllMeetupsPage() {
   return (
     <section>
       <h1>All Meetups</h1>
-      <ul>
+      {/* <ul>
         {DUMMY_DATA.map((meetup) => {
           // li 元素需要加一个unique key
           return <li key={meetup.id}>{meetup.title}</li>;
         })}
-      </ul>
+      </ul> */}
+      <MeetupList meetups={DUMMY_DATA}>
+        <MeetupItem></MeetupItem>
+      </MeetupList>
     </section>
   );
 }
