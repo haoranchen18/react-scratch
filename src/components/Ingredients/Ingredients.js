@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import IngredientList from "./IngredientList";
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
+
+  useEffect(() => {
+    console.log('RENDERING INGREDIENTS', userIngredients);
+  }, [userIngredients]);
 
   function addIngredientHandler(ingredient) {
     fetch(
@@ -34,12 +38,19 @@ function Ingredients() {
     });
   }
 
+  // 用了useCallback wrap起来之后，起到作用：当Ingredients componenet re-render的时候,
+  // useCallback 可以将内部函数catch起来，等到 re-render 全部结束之后，pass 到下面的child component 中
+  // 这样，onLoadIngredients={filteredIngredientsHandler} 就永远接受到同一个不会改变的参数
+  const filteredIngredientsHandler = useCallback((filteredIngredients) => {
+    setUserIngredients(filteredIngredients);
+  }, []);
+
   return (
     <div className="App">
       <IngredientForm onAddIngredient={addIngredientHandler} />
 
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         <IngredientList
           ingredients={userIngredients}
           onRemoveItem={removeIngredientHandler}
