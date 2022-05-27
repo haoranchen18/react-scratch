@@ -3,9 +3,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import IngredientForm from "./IngredientForm";
 import Search from "./Search";
 import IngredientList from "./IngredientList";
+import ErrorModal from "../UI/ErrorModal.js";
+
 function Ingredients() {
   const [userIngredients, setUserIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     console.log("RENDERING INGREDIENTS", userIngredients);
@@ -47,6 +50,9 @@ function Ingredients() {
           (ingredient) => ingredient.id !== ingredientId
         );
       });
+    }).catch(error => {
+      setError("Something went wrong!");
+      setIsLoading(false);
     });
   }
 
@@ -57,8 +63,13 @@ function Ingredients() {
     setUserIngredients(filteredIngredients);
   }, []);
 
+  function clearError() {
+    setError(null);
+  }
+
   return (
     <div className="App">
+      {error ? <ErrorModal onClose={clearError}>{error}</ErrorModal> : null}
       <IngredientForm
         onAddIngredient={addIngredientHandler}
         loading={isLoading}
