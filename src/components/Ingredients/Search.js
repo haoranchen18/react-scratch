@@ -44,7 +44,7 @@ const Search = React.memo((props) => {
     // onLoadIngredients 如果在parent component 中，ie. Ingredients 中，用useCallback，那么这个地方
     // 的值也理所当然的不会变，所以[enteredFilter, onLoadIngredients] 都没有改变，则useEffect只运行一次
     // 所以就不会有infinite loop
-  }, [enteredFilter, onLoadIngredients]);
+  }, [enteredFilter, onLoadIngredients, inputRef]);
 
   return (
     <section className="search">
