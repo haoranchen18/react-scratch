@@ -31,11 +31,18 @@ function Ingredients() {
   }
 
   function removeIngredientHandler(ingredientId) {
-    setUserIngredients((prevIngredients) => {
-      return prevIngredients.filter(
-        (ingredient) => ingredient.id !== ingredientId
-      );
-    });
+    fetch(
+      `https://react-hooks-update-48230-default-rtdb.firebaseio.com/ingredients/${ingredientId}.json`,
+      {
+        method: "DELETE"
+      }
+    ).then(response => {
+      setUserIngredients((prevIngredients) => {
+        return prevIngredients.filter(
+          (ingredient) => ingredient.id !== ingredientId
+        );
+      });
+    })
   }
 
   // 用了useCallback wrap起来之后，起到作用：当Ingredients componenet re-render的时候,
